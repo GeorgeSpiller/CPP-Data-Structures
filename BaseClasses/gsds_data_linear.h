@@ -28,13 +28,13 @@ class gsds_data_linear: public gsds_data_structure
 
         void push(int val) 
         {
-            throw out_of_range("Not implemented yet.");
+            throw not_implemented();
         }
 
 
         int pop() 
         {
-             throw out_of_range("Not implemented yet.");
+            throw not_implemented();     
         }
 
 
@@ -48,6 +48,18 @@ class gsds_data_linear: public gsds_data_structure
             }
             cout << print_arr << endl;
         }
+    
+    private:
+    
+        bool isFull() 
+        {
+            throw not_implemented();
+        } 
+
+        bool isEmpty() 
+        {
+            throw not_implemented();
+        } 
 };
 
 

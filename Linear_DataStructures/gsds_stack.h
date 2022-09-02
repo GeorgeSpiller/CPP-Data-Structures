@@ -21,7 +21,7 @@ class gsds_stack: public gsds_data_linear
 
         void push(int arg) 
         {
-            if (isStackFull()) 
+            if (isFull()) 
             {
                 throw overflow_error("Cannot push! Stack is full.");
             }
@@ -34,7 +34,7 @@ class gsds_stack: public gsds_data_linear
 
         int pop() 
         {
-            if (isStackEmpty()) 
+            if (isEmpty()) 
             {
                 throw underflow_error("Cannot pop! Stack is already empty.");
             }
@@ -46,12 +46,12 @@ class gsds_stack: public gsds_data_linear
 
         }
 
-        bool isStackEmpty() 
+        bool isEmpty() 
         {
             return top <= 0;
         }
 
-        bool isStackFull() 
+        bool isFull() 
         {
             return top == length;
         }

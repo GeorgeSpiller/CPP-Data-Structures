@@ -5,15 +5,23 @@
 
 using namespace std;
 
-//using namespace std;
-
 class gsds_data_nonlinear: public gsds_data_structure 
 {
 
     public:
+
         int *data_ptr;
 
-        // class constructor
+
+        // used for dynamic data structures
+        gsds_data_nonlinear() : gsds_data_structure(0)
+        {
+            length = 0;
+            data_ptr = nullptr; // not used
+        }
+
+
+        // used for static data structures
         gsds_data_nonlinear(int len) : gsds_data_structure(len)
         {
             length = len;
@@ -28,23 +36,44 @@ class gsds_data_nonlinear: public gsds_data_structure
         }
 
 
-        void push(int val) 
+        void insert(int val, int index) 
         {
             throw not_implemented();
         }
 
 
-        int pop() 
+        void delAtIndex(int index) 
         {
             throw not_implemented();
         }
 
 
-        void print() 
+        void delItem(int val) 
         {
-
+            throw not_implemented();
         }
+
+
+        void append(int val)
+        {
+            throw not_implemented();
+        }
+
+
+    private:
+    
+        bool isFull() 
+        {
+            throw not_implemented();
+        } 
+
+
+        bool isEmpty() 
+        {
+            throw not_implemented();
+        } 
 };
+
 
 
 #endif

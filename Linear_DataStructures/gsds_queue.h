@@ -21,7 +21,7 @@ class gsds_queue: public gsds_data_linear
 
         void push(int arg) 
         {
-            if (isQueueFull()) 
+            if (isFull()) 
             {
                 throw overflow_error("Cannot push! Queue is full.");
             }
@@ -34,7 +34,7 @@ class gsds_queue: public gsds_data_linear
 
         int pop() 
         {
-            if (isQueueEmpty()) 
+            if (isEmpty()) 
             {
                 throw underflow_error("Cannot pop! Queue is empty.");
             }
@@ -50,13 +50,13 @@ class gsds_queue: public gsds_data_linear
     
     private:
 
-        bool isQueueFull() 
+        bool isFull() 
         {
             int headNextVal = incrementWrapArround(head);
             return headNextVal == tail;
         }
 
-        bool isQueueEmpty()
+        bool isEmpty()
         {
             return head == tail;
         }
