@@ -12,6 +12,31 @@ class gsds_queue: public gsds_data_linear
         int head = 0;
         int tail = 0;
 
+
+        bool isFull() 
+        {
+            int headNextVal = incrementWrapArround(head);
+            return headNextVal == tail;
+        }
+
+
+        bool isEmpty()
+        {
+            return head == tail;
+        }
+
+
+        int incrementWrapArround(int val) 
+        {
+            val += 1;
+            if (val == length + 1) 
+            {
+                val = 0;
+            }
+            return val;
+        }
+
+
     public:
 
         gsds_queue(int len) : gsds_data_linear(len)
@@ -48,28 +73,6 @@ class gsds_queue: public gsds_data_linear
             return retVal;
         }
     
-    private:
-
-        bool isFull() 
-        {
-            int headNextVal = incrementWrapArround(head);
-            return headNextVal == tail;
-        }
-
-        bool isEmpty()
-        {
-            return head == tail;
-        }
-
-        int incrementWrapArround(int val) 
-        {
-            val += 1;
-            if (val == length + 1) 
-            {
-                val = 0;
-            }
-            return val;
-        }
 };  
 
 
