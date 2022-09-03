@@ -41,6 +41,10 @@ class gsds_data_nonlinear: public gsds_data_structure
             throw not_implemented();
         }
 
+        int index(int index) 
+        {
+            throw not_implemented();
+        }
 
         void delAtIndex(int index) 
         {
@@ -57,6 +61,20 @@ class gsds_data_nonlinear: public gsds_data_structure
         void append(int val)
         {
             throw not_implemented();
+        }
+
+        void print() 
+        {
+            if (data_ptr != nullptr) 
+            {
+                string print_arr = "";
+                for(int i = 0; i < length; i++) 
+                {
+                    print_arr += to_string(data_ptr[i]);    // std::to_string()
+                    print_arr += ", ";
+                }
+                cout << print_arr << endl;
+            }
         }
 
 

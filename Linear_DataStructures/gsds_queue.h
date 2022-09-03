@@ -1,7 +1,7 @@
 #ifndef GSDS_QUEUE
 #define GSDS_QUEUE
 
-#include "gsds_data_linear.h"
+#include "BaseClasses/gsds_data_linear.h"
 
 using namespace std;
 

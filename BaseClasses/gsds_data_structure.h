@@ -6,7 +6,7 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "NotImplemented.h"
+#include "..\Exceptions\NotImplemented.h"
 
 class gsds_data_structure 
 {

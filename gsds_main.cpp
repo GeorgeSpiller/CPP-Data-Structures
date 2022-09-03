@@ -1,8 +1,8 @@
 #include <iostream>
 #include <assert.h>
 
-#include "gsds_stack.h"
-#include "gsds_queue.h"
+#include "Linear_DataStructures\gsds_stack.h"
+#include "Linear_DataStructures\gsds_queue.h"
 
 using namespace std;
 
@@ -32,7 +32,7 @@ void test_stack()
     {
         stack_overflow.push(1);
         assert(false);
-    } catch (out_of_range) 
+    } catch (overflow_error) 
     {
         assert(true);
     }
@@ -42,7 +42,7 @@ void test_stack()
     {
         stack_underflow.pop();
         assert(false);
-    } catch (out_of_range) 
+    } catch (underflow_error) 
     {
         assert(true);
     }
@@ -76,7 +76,7 @@ void test_queue()
     {
         queue_overflow.push(1);
         assert(false);
-    } catch (out_of_range) 
+    } catch (overflow_error) 
     {
         assert(true);
     }
@@ -86,7 +86,7 @@ void test_queue()
     {
         queue_underflow.pop();
         assert(false);
-    } catch (out_of_range) 
+    } catch (underflow_error) 
     {
         assert(true);
     }

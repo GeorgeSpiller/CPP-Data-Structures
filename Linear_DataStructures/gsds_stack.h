@@ -1,7 +1,7 @@
 #ifndef GSDS_STACK
 #define GSDS_STACK
 
-#include "gsds_data_linear.h"
+#include "BaseClasses/gsds_data_linear.h"
 
 using namespace std;
 
@@ -22,7 +22,7 @@ class gsds_stack: public gsds_data_linear
         {
             return top == length;
         }
-
+    
 
     public:
 
