@@ -95,22 +95,83 @@ void test_queue()
 }
 
 
-// Main entry point to the program.
-int main() {
-
-    // test_stack();
-    // test_queue();
+void test_linkedList() 
+{
+    cout << "Testing Linked List..." << endl;
     gsds_linkedList llist = gsds_linkedList();
     llist.append(420);
     llist.append(421);
     llist.append(423);
-    llist.print();
+    assert(llist.length == 3);
+    assert(llist.index(0) == 420);
+    assert(llist.index(1) == 421);
+    assert(llist.index(2) == 423);
 
     llist.insert(422, 2);
-    llist.print();
+    assert(llist.index(1) == 421);
+    assert(llist.index(2) == 422);
+    assert(llist.index(3) == 423);
 
     llist.insert(439, 0);
     llist.insert(424, llist.length);
-    llist.print();
+    assert(llist.index(0) == 439);
+    assert(llist.index(llist.length-1) == 424);
 
+    llist.delAtIndex(2);
+    assert(llist.index(1) == 420);
+    assert(llist.index(2) == 422);
+    assert(llist.index(3) == 423);
+
+    llist.delItem(439);
+    llist.delItem(424);
+    llist.delItem(423);
+    llist.delItem(422);
+    assert(llist.index(0) == 420);
+    assert(llist.length == 1);
+
+    // test insert out_of_range
+    try 
+    {
+        llist.delAtIndex(-1);
+        assert(false);
+    } catch (out_of_range) 
+    {
+        assert(true);
+    }
+    // test index out_of_range
+    try 
+    {
+        llist.index(-1);
+        assert(false);
+    } catch (out_of_range) 
+    {
+        assert(true);
+    }
+    // test delAtIndex out_of_range
+    try 
+    {
+        llist.delAtIndex(-1);
+        assert(false);
+    } catch (out_of_range) 
+    {
+        assert(true);
+    }
+    // test delItem out_of_range
+    try 
+    {
+        llist.delAtIndex(4395);
+        assert(false);
+    } catch (out_of_range) 
+    {
+        assert(true);
+    }    
+    cout << "Tests Complete!" << endl;
+}
+
+// Main entry point to the program.
+int main() {
+
+    test_stack();
+    test_queue();
+    test_linkedList();
 }

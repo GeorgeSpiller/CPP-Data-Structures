@@ -58,7 +58,7 @@ class gsds_linkedList: public gsds_data_nonlinear
                     newNode_ptr->nextNode = currNode_ptr->nextNode;
                     currNode_ptr->nextNode = newNode_ptr;
                     length ++;
-                    break;
+                    return;
                 } else if (index == 0) 
                 {
                     newNode_ptr->value = start_ptr->value;
@@ -66,28 +66,83 @@ class gsds_linkedList: public gsds_data_nonlinear
                     start_ptr->value = val;
                     start_ptr->nextNode = newNode_ptr;
                     length ++;
-                    break;
+                    return;
                 }
                 currIndex ++;
                 currNode_ptr = currNode_ptr->nextNode;
             }
+            throw out_of_range("Index out of range.");
         }
 
         int index(int index) 
         {
-            throw not_implemented();
+            node *currPtr = start_ptr;
+            int currIndex = 0;
+
+            while (currPtr->nextNode != nullptr)  
+            {
+                if (currIndex == index) 
+                {
+                    return currPtr->value;
+                }
+                currPtr = currPtr->nextNode;
+                currIndex ++;
+            }
+            throw out_of_range("index not found.");
         }
 
 
         void delAtIndex(int index) 
         {
-            throw not_implemented();
+            node *currPtr = start_ptr;
+            node *prevPtr = start_ptr;
+            int currIndex = 0;
+
+            while (currPtr->nextNode != nullptr)  
+            {
+                if (currIndex == index) 
+                {
+                    prevPtr->nextNode = currPtr->nextNode;
+                    length --;
+                    return;
+                }
+                prevPtr = currPtr;
+                currPtr = currPtr->nextNode;
+                currIndex ++;
+            }
+            throw out_of_range("index not found.");
         }
 
 
         void delItem(int val) 
         {
-            throw not_implemented();
+            node *currPtr = start_ptr;
+            node *prevPtr = start_ptr;
+
+            while (currPtr->nextNode != nullptr)  
+            {
+                if (currPtr->value == val) 
+                {
+                    if (prevPtr == currPtr) 
+                    {
+                        // deleting the start node value
+                        node *nextNode = currPtr->nextNode;
+                        start_ptr->value = nextNode->value;
+                        start_ptr->nextNode = nextNode->nextNode;
+                        length --;
+                        return;
+                    } else 
+                    {
+                        // deleting any other node
+                        prevPtr->nextNode = currPtr->nextNode;
+                        length --;
+                        return;
+                    }
+                }
+                prevPtr = currPtr;
+                currPtr = currPtr->nextNode;
+            }
+            throw out_of_range("Value not found.");
         }
 
 
@@ -108,6 +163,7 @@ class gsds_linkedList: public gsds_data_nonlinear
         {
             node *currPtr = start_ptr;
             string print_arr = "";
+            stringstream ss;
 
             while (currPtr->nextNode != nullptr)  
             {
@@ -117,11 +173,14 @@ class gsds_linkedList: public gsds_data_nonlinear
                 print_arr += ss.str();
                 print_arr += "]";
                 print_arr += to_string(currPtr->value);
-                print_arr += ", ";
+                print_arr += "(->";
+                ss.str("");
+                ss << currPtr->nextNode; 
+                print_arr += ss.str();
+                print_arr += "), ";
                 currPtr = currPtr->nextNode;
             }
             print_arr += "[";    // std::to_string()
-            stringstream ss;
             ss << currPtr; 
             print_arr += ss.str();
             print_arr += "]";
