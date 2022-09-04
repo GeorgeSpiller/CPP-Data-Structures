@@ -102,10 +102,15 @@ int main() {
     // test_queue();
     gsds_linkedList llist = gsds_linkedList();
     llist.append(420);
-    llist.print();
     llist.append(421);
+    llist.append(423);
     llist.print();
-    llist.append(422);
+
+    llist.insert(422, 2);
+    llist.print();
+
+    llist.insert(439, 0);
+    llist.insert(424, llist.length);
     llist.print();
 
 }

@@ -39,8 +39,7 @@ class gsds_linkedList: public gsds_data_nonlinear
 
         void insert(int val, int index) 
         {
-            //  Note: for future index checking: check if index is <= length + 1
-            //  Warning: Current implementation only works for append(). 
+            //  Note: for future index checking: check if index is <= length + 1 
 
             node *newNode_ptr = new node;
             node_ptrs.push_back(newNode_ptr);
@@ -56,9 +55,16 @@ class gsds_linkedList: public gsds_data_nonlinear
                 // -1 as we want to replace the previous node's 'next node' with the new node
                 if (currIndex == index - 1) 
                 {
-                    node *tmpNextNode = currNode_ptr->nextNode;
-                    newNode_ptr->nextNode = currNode_ptr->nextNode; // (*currPtr).nextNode
-                    currNode_ptr->nextNode = newNode_ptr; //newNode_ptr
+                    newNode_ptr->nextNode = currNode_ptr->nextNode;
+                    currNode_ptr->nextNode = newNode_ptr;
+                    length ++;
+                    break;
+                } else if (index == 0) 
+                {
+                    newNode_ptr->value = start_ptr->value;
+                    newNode_ptr->nextNode = start_ptr->nextNode;
+                    start_ptr->value = val;
+                    start_ptr->nextNode = newNode_ptr;
                     length ++;
                     break;
                 }
