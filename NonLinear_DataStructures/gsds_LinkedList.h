@@ -1,7 +1,9 @@
 #ifndef GSDS_LINKEDLIST
 #define GSDS_LINKEDLIST
 
-#include "../BaseClasses/gsds_data_nonLinear.h"
+#include "BaseClasses/gsds_data_nonLinear.h"
+#include <sstream>  // used in print_verbose to print pointers.
+#include <list>
 
 using namespace std;
 
@@ -9,23 +11,60 @@ class gsds_linkedList: public gsds_data_nonlinear
 {
     
     private:
-        int* start;
-        int* end;
-        struct {
-            int value;      // value of the node
-            int* nextNode;  // location of the next node in the Linked List. end node is NullPtr
-        } node;
+        struct node{
+            int value;              // value of the node
+            node *nextNode;         // location of the next node in the Linked List. end node is NullPtr
+        };
+
+        node *start_ptr = new node; //the starting node.
+        node *end_ptr = new node;   // the final node.
+        list<node*> node_ptrs;      // list of pointers to all other nodes (not including start and end).
 
     public:
 
         gsds_linkedList() : gsds_data_nonlinear()
         {
-            
+            end_ptr->nextNode = nullptr;
+        }
+
+        ~gsds_linkedList()
+        {
+            delete start_ptr;
+            delete end_ptr;
+            for(list<node*>::iterator n=node_ptrs.begin(); n!=node_ptrs.end(); ++n)
+            {
+                delete (*n);       
+            }   
         }
 
         void insert(int val, int index) 
         {
-            throw not_implemented();
+            //  Note: for future index checking: check if index is <= length + 1
+            //  Warning: Current implementation only works for append(). 
+
+            node *newNode_ptr = new node;
+            node_ptrs.push_back(newNode_ptr);
+            newNode_ptr->value = val;
+            newNode_ptr->nextNode = nullptr;
+
+
+            // loop through all nodes from the begining, until index is found
+            node *currNode_ptr = start_ptr;
+            int currIndex = 0;
+            while (currNode_ptr->nextNode != nullptr) 
+            {
+                // -1 as we want to replace the previous node's 'next node' with the new node
+                if (currIndex == index - 1) 
+                {
+                    node *tmpNextNode = currNode_ptr->nextNode;
+                    newNode_ptr->nextNode = currNode_ptr->nextNode; // (*currPtr).nextNode
+                    currNode_ptr->nextNode = newNode_ptr; //newNode_ptr
+                    length ++;
+                    break;
+                }
+                currIndex ++;
+                currNode_ptr = currNode_ptr->nextNode;
+            }
         }
 
         int index(int index) 
@@ -50,31 +89,54 @@ class gsds_linkedList: public gsds_data_nonlinear
         {
             if (length == 0) 
             {
-                start = *new node;
-                end = *new node;
-                start.value =  val;
-                start.nextNode = *end;
-                end.value = nullptr;
-                end.nextNode = nullptr;
-
-                length = 2;
+                start_ptr->value =  val;
+                start_ptr->nextNode = end_ptr;
+                length = 1;
             } else 
-            {
-                if (end.value == nullptr) 
-                {
-                    end.value = val;
-                } else 
-                {
-                    // call insert on length - 1;
-                }
+            {    
+                insert(val, length);
             }
+        }
+
+        void print_verbose() 
+        {
+            node *currPtr = start_ptr;
+            string print_arr = "";
+
+            while (currPtr->nextNode != nullptr)  
+            {
+                print_arr += "[";    // std::to_string()
+                stringstream ss;
+                ss << currPtr; 
+                print_arr += ss.str();
+                print_arr += "]";
+                print_arr += to_string(currPtr->value);
+                print_arr += ", ";
+                currPtr = currPtr->nextNode;
+            }
+            print_arr += "[";    // std::to_string()
+            stringstream ss;
+            ss << currPtr; 
+            print_arr += ss.str();
+            print_arr += "]";
+            print_arr += to_string(currPtr->value);
+
+            cout << print_arr << endl;
         }
 
         void print() 
         {
-            throw not_implemented();
-        }
+            node *currPtr = start_ptr;
+            string print_arr = "";
 
+            while (currPtr->nextNode != nullptr)  
+            {
+                print_arr += to_string(currPtr->value);
+                print_arr += ", ";
+                currPtr = currPtr->nextNode;
+            }
+            cout << print_arr << endl;
+        }
 };
 
 

@@ -3,6 +3,7 @@
 
 #include "Linear_DataStructures\gsds_stack.h"
 #include "Linear_DataStructures\gsds_queue.h"
+#include "NonLinear_DataStructures\gsds_LinkedList.h"
 
 using namespace std;
 
@@ -97,7 +98,14 @@ void test_queue()
 // Main entry point to the program.
 int main() {
 
-    test_stack();
-    test_queue();
+    // test_stack();
+    // test_queue();
+    gsds_linkedList llist = gsds_linkedList();
+    llist.append(420);
+    llist.print();
+    llist.append(421);
+    llist.print();
+    llist.append(422);
+    llist.print();
 
 }
